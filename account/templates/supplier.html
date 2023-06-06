@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'links' %}
+    <link rel="stylesheet" href="{% static 'tables/home.css' %}">
+{% endblock %}
+
+
+{% block 'title'%}
+<title>{{user.username}}'s Page</title>
+{% endblock %}
+
+{% block 'body' %}
+
+<table style="text-align: center;">
+    <thead>
+        <tr>
+            <th style="text-align: center;">Product</th>
+            <th style="text-align: center;">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+{% endblock %}

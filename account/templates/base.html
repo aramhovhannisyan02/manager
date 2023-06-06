@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tables/header.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/tables-512.png' %}">
+    {% block 'links' %}
+
+    {% endblock%}
+
+    {% block 'title' %}
+
+    {% endblock %}
+</head>
+<body style="background-image: url({% static 'img/background.jpg' %});">
+    <header style="background-image: url({% static 'img/background.jpg' %});">
+      <nav>
+
+        {% if user.is_authenticated  %}
+            {% block header %}
+                {% if header.lenght > 0 %}
+                    {{ header }}
+                {% else %}
+                    <h1 style="color:white;">Welcome {{user}}</h1>
+                {% endif %}
+            {% endblock %}
+        {% endif %}
+        {% if user.is_admin %}
+            <a href="{% url 'adminpage' %}">Home</a>
+            <a href="{% url 'customersforadmin' %}">Customers</a>
+        {% elif user.is_employee %}
+            <a href="{% url 'employee' %}">Home</a>
+        {% elif user.is_customer %}
+            <a href="{% url 'customer' %}">Home</a>
+        {% elif user.is_supplier %}
+            <a href="{% url 'supplier' %}">Home</a>
+        {% endif %}
+        {% if user.is_employee %}
+            <a href="{% url 'customers' %}">Customers</a>
+        {% elif user.is_customer %}
+            <a href="{% url 'tablesbyuser' %}">My Tables</a>
+        {% elif user.is_supplier %}
+            <a href="{% url 'orderedProducts' %}">Orders</a>
+        
+        {% endif %}
+        <a href="{% url 'logout' %}">Log Out</a>
+      </nav>
+
+    </header>
+    <br>
+    <br>
+    <br>
+
+
+    {% block 'body'%}
+
+    {% endblock%}
+
+    {% block 'scripts' %}
+    
+    {% endblock %}
+</body>
+</html>

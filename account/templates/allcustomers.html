@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'links' %}
+    <link rel="stylesheet" href="{% static 'tables/home.css' %}">
+{% endblock %}
+
+
+{% block 'title' %}
+    <title>Customers</title>
+{% endblock %}
+
+{% block 'body'%}
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                <h1>Customer</h1>
+            </th>
+            <th>
+                <h1>Debt</h1>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in debts %}
+            {% if i.2 %}
+                <tr style="font-size: 18px;">
+                    <td><h1><a href="{% url 'customertables' i.0.id %}" class="toCustPage">{{i.0}}</a></h1></td>
+                    <td><h1><a class="toCustPage" href="{% url 'customersDebt' i.0.id %}">{{i.1}}</a></h1></td> 
+                </tr>
+            {% else %}
+                <tr style="font-size: 18px;">
+                    <td><h1><a href="{% url 'customertables' i.0.id %}" class="toCustPage">{{i.0}}</a></h1></td>
+                    <td><h1><a class="toCustPage" style="color:red;" href="{% url 'customersDebt' i.0.id %}">{{i.1}}  ✕</a></h1></td> 
+                </tr>
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <td style="color: red; border-top: 2px solid red;font-size: 25px;">Total</td>
+            <td style="color: red; border-top: 2px solid red;font-size: 25px;" id="TotalDebt"></td>
+        </tr>
+    </tbody>
+</table>
+
+{% block 'scripts' %}
+<script src="{% static 'js/employee/totalDebt.js' %}"></script>
+{% endblock%}
+{% endblock %}
